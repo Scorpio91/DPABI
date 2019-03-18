@@ -1462,20 +1462,22 @@ end
 %     parpool(Cfg.ParallelWorkersNumber);
 % end
 % YAN Chao-Gan, 190312. To be compatible with early matlab versions
-PCTVer = ver('distcomp');
-if ~isempty(PCTVer)
-    FullMatlabVersion = sscanf(version,'%d.%d.%d.%d%s');
-    if FullMatlabVersion(1)*1000+FullMatlabVersion(2)<8*1000+3    %YAN Chao-Gan, 151117. If it's lower than MATLAB 2014a.  %FullMatlabVersion(1)*1000+FullMatlabVersion(2)>=7*1000+8    %YAN Chao-Gan, 120903. If it's higher than MATLAB 2008.
-        CurrentSize_MatlabPool = matlabpool('size');
-        if (CurrentSize_MatlabPool==0) && (Cfg.ParallelWorkersNumber~=0)
-            matlabpool(Cfg.ParallelWorkersNumber)
-        end
-    else
-        if isempty(gcp('nocreate')) && Cfg.ParallelWorkersNumber~=0
-            parpool(Cfg.ParallelWorkersNumber);
-        end
-    end
-end
+
+%scorpio91, 20190319. the calling of Cfg.ParallerWorkersNumber errored once load previously autosaved .mat files (in which no paraller workers were defined)
+% PCTVer = ver('distcomp');
+% if ~isempty(PCTVer)
+%    FullMatlabVersion = sscanf(version,'%d.%d.%d.%d%s');
+%    if FullMatlabVersion(1)*1000+FullMatlabVersion(2)<8*1000+3    %YAN Chao-Gan, 151117. If it's lower than MATLAB 2014a.  %FullMatlabVersion(1)*1000+FullMatlabVersion(2)>=7*1000+8    %YAN Chao-Gan, 120903. If it's higher than MATLAB 2008.
+%        CurrentSize_MatlabPool = matlabpool('size');
+%        if (CurrentSize_MatlabPool==0) && (Cfg.ParallelWorkersNumber~=0)
+%            matlabpool(Cfg.ParallelWorkersNumber)
+%        end
+%    else
+%        if isempty(gcp('nocreate')) && Cfg.ParallelWorkersNumber~=0
+%            parpool(Cfg.ParallelWorkersNumber);
+%        end
+%    end
+%end
 
 
 
